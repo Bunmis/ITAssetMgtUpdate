@@ -1,5 +1,5 @@
 def GetConnection():
-    driver = "{SQL Server Native Client 11.0}"
+    driver = "{/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.0.so.1.1}"  # "{SQL Server Native Client 11.0}" 
     server = "dayo-project-db.database.windows.net"  #"DAYO-PC\SQLEXPRESS" 
     database = "ITAssetDB"
     username = "sa-dayo"
