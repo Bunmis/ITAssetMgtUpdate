@@ -1,0 +1,4 @@
+AssetId,AssetModelNo,AssetName,Description,Price,ManufactureDate,DatePurchase,Service,AssetStatus,CategoryId,DepartmentId,Comment,isLicenseUpdate,LicenseUpdateDate,Warrant,Depreciation,isAvailable
+ASS005,New_Model,Sample Asset,this is the sample asset,2000,14/04/2023,14/04/2023,0,1,1,1,this is a sample,1,14/04/2023,1,2,1
+ASS003,New_Model,Sample Asset,this is the sample asset,2000,14/04/2023,14/04/2023,0,1,1,1,this is a sample,1,14/04/2023,1,2,1
+ASS004,New_Model,Sample Asset,this is the sample asset,2000,14/04/2023,14/04/2023,0,1,1,1,this is a sample,1,14/04/2023,1,2,1

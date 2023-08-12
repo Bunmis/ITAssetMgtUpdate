@@ -1,0 +1,151 @@
+
+{% extends "index.html" %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+            </div>
+            <form action="{{ url_for('views.assetsearch') }}" method="post">
+
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="city">Asset Name</label>
+                        <input class="form-control" id="AssetName" name="AssetName" value="{{AssetName}}" placeholder="Enter asset Asset name" />
+                    </div>
+                <!--    <div class="form-group col-sm-4">
+                        <label for="postal-code">Location</label>
+                        <select id="department" class="form-control" value="{{DepartmentId}}">
+                            <option value="0">-Select-</option>
+                            @if (departmentModel != null)
+                            {
+                                foreach (var dept in departmentModel)
+                                {
+                                    <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+                                }
+                            }
+                        </select>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="city">Start Date</label>
+                        <input type="date" id="StartDate" name="StartDate" class="form-control" value="{{StartDate}}" />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="postal-code">End Date</label>
+                        <input type="date" id="EndDate" name="EndDate" class="form-control" value="{{EndDate}}" />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <input type="hidden" name="edittype" value="2" />
+                        <input type="submit" class="btn btn-primary  px-4">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div> 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> List of Depreciated Asset
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>AssetId</th>
+                            <th>Asset Name</th>
+                            <th>Model No</th>
+                            <th>Price</th>
+                            <th>Manufacture Date</th>
+                            <th>Purchase Date</th>
+                            <!--<th>Depreciation Date</th>-->
+                            <th>Asset Status</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if assetModel == None %}
+                        
+                            <tr><td colspan="9">No record found!</td></tr>
+                        {% else %}
+                                {% for item in assetModel %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{item.AssetId}}</td>
+                                    <td>{{item.AssetName}}</td>
+                                    <td>{{item.AssetModelNo}}</td>
+                                    <td>{{item.Price}}</td>
+                                    <td>{{item.ManufactureDate}}</td>
+                                    <td>{{item.DatePurchase}}</td>
+                                    <td>
+                                       
+                                        {% if item.AssetStatusId != 4 and item.AssetStatusId != 6 and item.AssetStatusId !=7 %}
+                                                
+                                        <span class="badge badge-success">
+                                            {% if item.AssetStatusId == 1  %}
+                                                <span>New</span>
+                                            {% elif item.AssetStatusId == 2 %}
+                                                <span>In Use</span>
+                                            {% elif item.AssetStatusId == 3 %}
+                                                <span>Available</span>
+                                            {% elif item.AssetStatusId == 5 %}
+                                                <span>Miscellaneous</span>
+                                            {% elif item.AssetStatusId == 8 %}
+                                                <span>License Updated</span>
+                                            {% elif item.AssetStatusId == 9 %}
+                                                <span>Servicing</span>
+                                            {% elif item.AssetStatusId == 10 %}
+                                                <span>Request For Servicing</span>
+                                            {%endif%}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge badge-warning">
+                                            {% if item.AssetStatusId == 4  %}
+                                                <span>Depreciate</span>
+                                            {% elif item.AssetStatusId == 7 %}
+                                                <span>Disposal</span>
+                                            {% elif item.AssetStatusId == 6 %}
+                                                <span>Disposal Requested</span>
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                        <span>
+                                            {% if item.AssetStatus != "10" %}
+                                            <a href="editasset/2/{{item.ID}}" class="btn btn-success">
+                                            
+                                                Edit
+                                            </a>
+                                            {% endif %}
+                                           <!-- <a href="{{ url_for('views.asset', id=item.ID)}}" class="btn btn-success" data-toggle="modal" data-target="#addSingleModal">
+                                            
+                                                Edit
+                                            </a> -->
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                             {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.col-->
+</div>
+
+
+
+
+{% endblock %}

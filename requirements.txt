@@ -1,0 +1,5 @@
+flask==2.2.3
+pandas==2.0.0
+flash==1.0.3
+pyodbc==4.0.35
+Flask-Mail==0.9.1

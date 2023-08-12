@@ -1,0 +1,115 @@
+
+{% extends "index.html" %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="printArea">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Asset History
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>AssetId</th>
+                            <th>Asset Name</th>
+                            <th>Model No</th>
+                            <th>Price</th>
+                            <th>Manufacture Date</th>
+                            <th>Date Purchase</th>
+                            <th>Asset Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if assetModel == None %}
+                        
+                           <!-- <tr><td colspan="9">No record found!</td></tr>-->
+                        {% else %}
+                                {% for item in assetModel %}
+                                <tr>
+                                                <td>{{ loop.index }}</td>
+                                              <td>{{item.AssetId}}</td>
+                                    <td>{{item.AssetName}}</td>
+                                    <td>{{item.AssetModelNo}}</td>
+                                    <td>{{item.Price}}</td>
+                                    <td>{{item.ManufactureDate}}</td>
+                                    <td>{{item.DatePurchase}}</td>
+                                    <td>
+                                      
+                                        {% if item.AssetStatusId != 4 and item.AssetStatusId != 6 and item.AssetStatusId !=7 %}
+                                                    
+                                        <span class="badge badge-success">
+                                            {% if item.AssetStatusId == 1  %}
+                                                <span>New</span>
+                                            {% elif item.AssetStatusId == 2 %}
+                                                <span>In Use</span>
+                                            {% elif item.AssetStatusId == 3 %}
+                                                <span>Available</span>
+                                            {% elif item.AssetStatusId == 5 %}
+                                                <span>Miscellaneous</span>
+                                            {% elif item.AssetStatusId == 8 %}
+                                                <span>License Updated</span>
+                                            {% elif item.AssetStatusId == 9 %}
+                                                <span>Servicing</span>
+                                            {% elif item.AssetStatusId == 10 %}
+                                                <span>Request For Servicing</span>
+                                            {%endif%}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge badge-warning">
+                                            {% if item.AssetStatusId == 4  %}
+                                                <span>Depreciate</span>
+                                            {% elif item.AssetStatusId == 7 %}
+                                                <span>Disposal</span>
+                                            {% elif item.AssetStatusId == 6 %}
+                                                <span>Disposal Requested</span>
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                    </td> 
+                                        
+                                 
+                                    <td><button data-index="{{loop.index}}" class="btn btn-success" >Detail</button></td>
+                                </tr>
+                                 <tr>
+                                    <td style="display: none;" id="Id_{{loop.index}}" colspan="9">
+                                    <h5><b>Activity</b></h5>
+                                    {% for a in activity %}
+                                        {% if a.AssetId == item.ID %}
+                                            <span>***<!--.&#41;--> {{a.UserName}} changes status to  {{a.ActivityDescription}} on {{a.DateCreated}}</span>
+                                            <br/>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <h5><b>Cost Activity</b></h5>
+                                    {% for c in cost %}
+                                        {% if c.AssetId == item.ID %}
+                                            <span>***.&#41; {{c.ActivityDescription}} costs {{c.Cost}}</span>
+                                            <br/>
+                                        {% endif %}
+                                        
+                                    {% endfor %}
+
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+
+                             {% endif %}
+                    </tbody>
+                </table>
+                <div>
+                    <button class="btn btn-primary" type="button" id="buttonSearch" onclick="printDiv()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-->
+</div>
+
+
+{% endblock %}
+
